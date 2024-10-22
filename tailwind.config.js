@@ -8,8 +8,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        dustyPinky: "#f6c7c7",
+        dustyBlack: "#141414",
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      backgroundImage: {
+        logo: "url('./public/logo.PNG')",
       },
     },
   },
