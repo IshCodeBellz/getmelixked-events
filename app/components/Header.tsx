@@ -26,25 +26,25 @@ export default function Header() {
             <nav aria-label="Global">
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <div className="text-gray-500 transition hover:text-gray-500/75">
+                  <div className="text-graphite transition hover:text-graphite/75">
                     <Link href={"/"}>Home</Link>
                   </div>
                 </li>
 
                 <li>
-                  <div className="text-gray-500 transition hover:text-gray-500/75">
+                  <div className="text-graphite transition hover:text-graphite/75">
                     <Link href={"/About"}>About</Link>
                   </div>
                 </li>
 
                 <li>
-                  <div className="text-gray-500 transition hover:text-gray-500/75">
+                  <div className="text-graphite transition hover:text-graphite/75">
                     <Link href={"/Services"}>Services</Link>
                   </div>
                 </li>
 
                 <li>
-                  <div className="text-gray-500 transition hover:text-gray-500/75">
+                  <div className="text-graphite transition hover:text-graphite/75">
                     <Link href={"/Contact"}>Contact</Link>
                   </div>
                 </li>

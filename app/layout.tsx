@@ -1,5 +1,6 @@
-import Footer from "@/app/components/Footer";
-import Header from "@/app/components/Header";
+import React from "react";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import "./globals.css";
 
 export const metadata = {
@@ -13,9 +14,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <body>
           <Header />
-          <div className="w-9/12 flex mx-auto bg-white">
-            <div className="mx-auto">{children}</div>
-          </div>
+          <div className="">{children}</div>
           <Footer />
         </body>
       </html>
