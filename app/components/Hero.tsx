@@ -45,6 +45,8 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
     setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
+  const slidesExist = slides && slides.length > 0;
+
   return (
     <section className="relative isolate min-h-[70vh] w-full overflow-hidden rounded-b-3xl md:min-h-[80vh]">
       <div
@@ -90,44 +92,41 @@ export default function HeroCarousel({ slides }: HeroCarouselProps) {
           </div>
         </div>
       </div>
-      {/* Carousel Controls */}
-      <button
-        onClick={goToPrev}
-        className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white hover:bg-black/60"
-        aria-label="Previous Slide"
-      >
-        &#8592;
-      </button>
-      <button
-        onClick={goToNext}
-        className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white hover:bg-black/60"
-        aria-label="Next Slide"
-      >
-        &#8594;
-      </button>
-      {/* Indicators */}
-      <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
-        {slides.map((_, idx) => (
+      {slides.length > 1 && (
+        <>
+          {/* Carousel Controls */}
           <button
-            key={idx}
-            onClick={() => {
-              setDirection(idx > current ? "right" : "left");
-              setCurrent(idx);
-            }}
-            className={`h-2 w-2 rounded-full transition-all ${
-              idx === current ? "bg-brand" : "bg-white/40"
-            }`}
-            aria-label={`Go to slide ${idx + 1}`}
-          />
-        ))}
-      </div>
+            onClick={goToPrev}
+            className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white hover:bg-black/60"
+            aria-label="Previous Slide"
+          >
+            &#8592;
+          </button>
+          <button
+            onClick={goToNext}
+            className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white hover:bg-black/60"
+            aria-label="Next Slide"
+          >
+            &#8594;
+          </button>
+          {/* Indicators */}
+          <div className="absolute bottom-6 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => {
+                  setDirection(idx > current ? "right" : "left");
+                  setCurrent(idx);
+                }}
+                className={`h-2 w-2 rounded-full transition-all ${
+                  idx === current ? "bg-brand" : "bg-white/40"
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 }
-// Add sliding animation keyframes to global CSS if not present
-// @layer utilities {
-//   .animate-slide-right { animation: slideRight 0.7s cubic-bezier(.4,0,.2,1); }
-//   .animate-slide-left { animation: slideLeft 0.7s cubic-bezier(.4,0,.2,1); }
-//   @keyframes slideRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
-//   @keyframes slideLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
-// }

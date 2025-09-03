@@ -24,29 +24,46 @@ export default function Header() {
 
           <div className="hidden md:block">
             <nav aria-label="Global">
-              <ul className="flex items-center gap-6 text-sm">
+              <ul className="flex items-center gap-8 text-base font-medium">
                 <li>
-                  <div className="text-graphite transition hover:text-graphite/75">
-                    <Link href={"/"}>Home</Link>
-                  </div>
+                  <Link
+                    href={"/"}
+                    className="text-cocoa transition hover:text-cocoa/75"
+                  >
+                    Home
+                  </Link>
                 </li>
-
                 <li>
-                  <div className="text-graphite transition hover:text-graphite/75">
-                    <Link href={"/About"}>About</Link>
-                  </div>
+                  <Link
+                    href={"/About"}
+                    className="text-cocoa transition hover:text-cocoa/75"
+                  >
+                    About
+                  </Link>
                 </li>
-
                 <li>
-                  <div className="text-graphite transition hover:text-graphite/75">
-                    <Link href={"/Services"}>Services</Link>
-                  </div>
+                  <Link
+                    href={"/Services"}
+                    className="text-cocoa transition hover:text-cocoa/75"
+                  >
+                    Services
+                  </Link>
                 </li>
-
                 <li>
-                  <div className="text-graphite transition hover:text-graphite/75">
-                    <Link href={"/Contact"}>Contact</Link>
-                  </div>
+                  <Link
+                    href={"/Contact"}
+                    className="text-cocoa transition hover:text-cocoa/75"
+                  >
+                    Contact
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={"/Events"}
+                    className="text-cocoa transition hover:text-cocoa/75"
+                  >
+                    Events
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -55,7 +72,7 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <div className="sm:flex sm:gap-4">
               <div className="hidden sm:flex">
-                <div className="rounded-md bg-dustyBlack px-5 py-2.5 text-sm font-medium text-gray-400 transition hover:text-dustyPinky">
+                <div className="rounded-md bg-dustyBlack px-5 py-2.5 text-sm font-medium text-surface-500 transition hover:text-dustyPinky">
                   <Link href={"/Contact"}>Contact Us</Link>
                 </div>
               </div>

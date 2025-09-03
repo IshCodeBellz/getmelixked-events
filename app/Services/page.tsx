@@ -100,10 +100,10 @@ export default function Services() {
           </div>
           {/* Additional services can be added here */}
 
-          <div className="mt-12 text-center">
+          <div className="col-span-full flex justify-center mt-8">
             <a
               href="#"
-              className="inline-block rounded bg-pink-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400"
+              className="inline-block rounded-full bg-brand px-10 py-3 text-base font-semibold text-graphite shadow-lg transition hover:bg-brand/90 focus:outline-none focus:ring-2 focus:ring-brand/40"
             >
               Get Started Today
             </a>
