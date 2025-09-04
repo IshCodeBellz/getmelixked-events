@@ -1,17 +1,22 @@
 "use client";
 
-import { Document, Page, pdfjs } from "react-pdf";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
-// If you want selectable/searchable text:
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
+import dynamic from "next/dynamic";
 
-if (typeof window !== "undefined") {
-  pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
-}
+// 👇 This ensures react-pdf never runs during SSR/prerender
+const PDFMenuViewer = dynamic(
+  () => import("../components/PDFMenuViewer.client"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="bg-graphite rounded-xl p-6 shadow-lg text-white text-center">
+        Loading PDF…
+      </div>
+    ),
+  }
+);
 
-// --- Data ---
 const cocktails = [
   {
     name: "Classic Mojito",
@@ -103,79 +108,10 @@ const seasonalMenus = [
   },
 ];
 
-// --- Components ---
-function PDFMenuViewer({ name, file }: { name: string; file: string }) {
-  const [numPages, setNumPages] = useState<number | null>(null);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [error, setError] = useState<string | null>(null);
-
-  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
-    setNumPages(numPages);
-    setPageNumber(1);
-    setError(null);
-  }
-
-  function onDocumentLoadError() {
-    setError("Could not load PDF.");
-  }
-
-  return (
-    <div className="bg-graphite rounded-xl p-6 shadow-lg flex flex-col items-center">
-      <h3 className="text-xl font-semibold mb-3 text-white">{name}</h3>
-      {error ? (
-        <div className="text-red-500">{error}</div>
-      ) : (
-        <>
-          <Document
-            file={file}
-            onLoadSuccess={onDocumentLoadSuccess}
-            onLoadError={onDocumentLoadError}
-            loading={<span className="text-white">Loading PDF...</span>}
-            className="mb-4"
-          >
-            <Page
-              pageNumber={pageNumber}
-              width={300}
-              renderAnnotationLayer={false}
-              renderTextLayer={false}
-            />
-          </Document>
-          {numPages && numPages > 1 && (
-            <div className="flex items-center gap-2 mt-2">
-              <button
-                type="button"
-                className="px-2 py-1 bg-brand-400 rounded text-white disabled:opacity-50"
-                onClick={() => setPageNumber((n) => Math.max(n - 1, 1))}
-                disabled={pageNumber <= 1}
-                aria-label="Previous page"
-              >
-                Prev
-              </button>
-              <span className="text-white">
-                Page {pageNumber} of {numPages}
-              </span>
-              <button
-                type="button"
-                className="px-2 py-1 bg-brand-400 rounded text-white disabled:opacity-50"
-                onClick={() =>
-                  numPages && setPageNumber((n) => Math.min(n + 1, numPages))
-                }
-                disabled={numPages ? pageNumber >= numPages : true}
-                aria-label="Next page"
-              >
-                Next
-              </button>
-            </div>
-          )}
-        </>
-      )}
-    </div>
-  );
-}
-
 export default function MenuPage() {
   return (
     <main className="bg-surface-50 min-h-screen py-12 text-white">
+      {/* ... Cocktails + BBQ sections ... */}
       <section className="mx-auto max-w-4xl px-4 mb-12 text-center">
         <h1 className="text-4xl font-bold text-brand mb-4">Our Menu</h1>
         <p className="text-lg text-white/80 mb-2">
@@ -185,7 +121,6 @@ export default function MenuPage() {
           Handcrafted drinks and flame-grilled bites for every occasion.
         </p>
       </section>
-
       <section className="mx-auto max-w-4xl px-4 mb-16">
         <h2 className="text-2xl font-semibold text-brand mb-6">Cocktails</h2>
         <div className="grid gap-8 md:grid-cols-3">
@@ -197,8 +132,8 @@ export default function MenuPage() {
               <Image
                 src={item.image}
                 alt={item.name}
-                width={600}
-                height={400}
+                width={200}
+                height={200}
                 className="rounded-lg mb-3 object-cover w-full h-40"
               />
               <h3 className="text-lg font-bold text-brand mb-1">{item.name}</h3>
@@ -207,7 +142,6 @@ export default function MenuPage() {
           ))}
         </div>
       </section>
-
       <section className="mx-auto max-w-4xl px-4 mb-8">
         <h2 className="text-2xl font-semibold text-brand mb-6">
           BBQ Favourites
@@ -221,8 +155,8 @@ export default function MenuPage() {
               <Image
                 src={item.image}
                 alt={item.name}
-                width={600}
-                height={400}
+                width={200}
+                height={200}
                 className="rounded-lg mb-3 object-cover w-full h-40"
               />
               <h3 className="text-lg font-bold text-brand mb-1">{item.name}</h3>
@@ -231,8 +165,6 @@ export default function MenuPage() {
           ))}
         </div>
       </section>
-
-      {/* Seasonal Menus Section */}
       <section className="mx-auto max-w-4xl px-4 mb-16">
         <h2 className="text-2xl font-semibold text-brand mb-4 text-center">
           Seasonal Menus
