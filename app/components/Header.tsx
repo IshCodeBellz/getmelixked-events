@@ -1,15 +1,17 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <header className="bg-dustyPinky">
+    <header className="bg-dustyPinky relative z-20">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
             <div className="block">
-              {" "}
               <span className="sr-only">Home</span>
               <Link href={"/"}>
                 <Image
@@ -17,7 +19,7 @@ export default function Header() {
                   width={62}
                   height={62}
                   alt="Picture of the author"
-                />{" "}
+                />
               </Link>
             </div>
           </div>
@@ -78,7 +80,11 @@ export default function Header() {
               </div>
             </div>
             <div className="block md:hidden">
-              <button className="rounded bg-dustyBlack p-2 text-gray-600/75 transition hover:text-dustyPinky">
+              <button
+                className="rounded bg-dustyBlack p-2 text-gray-600/75 transition hover:text-dustyPinky"
+                aria-label="Open menu"
+                onClick={() => setMenuOpen((open) => !open)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="size-5"
@@ -97,6 +103,58 @@ export default function Header() {
             </div>
           </div>
         </div>
+        {/* Mobile menu dropdown */}
+        {menuOpen && (
+          <nav className="md:hidden absolute top-full left-0 w-full bg-dustyPinky shadow-lg border-t border-dustyBlack z-30 animate-fade-in">
+            <ul className="flex flex-col items-center gap-6 py-6 text-base font-medium">
+              <li>
+                <Link
+                  href={"/"}
+                  className="text-cocoa transition hover:text-cocoa/75"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/About"}
+                  className="text-cocoa transition hover:text-cocoa/75"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/Services"}
+                  className="text-cocoa transition hover:text-cocoa/75"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Services
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/Contact"}
+                  className="text-cocoa transition hover:text-cocoa/75"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={"/Events"}
+                  className="text-cocoa transition hover:text-cocoa/75"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Events
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        )}
       </div>
     </header>
   );
