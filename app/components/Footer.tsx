@@ -134,13 +134,13 @@ export default function Footer() {
           </li>
           <li>|</li>
           <li>
-            <Link className="transition hover:text-cocoa/75" href="/blog">
+            <Link className="transition hover:text-cocoa/75" href="/Blog">
               Blog
             </Link>
           </li>
           <li>|</li>
           <li>
-            <Link className="transition hover:text-cocoa/75" href="/story">
+            <Link className="transition hover:text-cocoa/75" href="/Story">
               Story
             </Link>
           </li>
